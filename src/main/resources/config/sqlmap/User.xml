@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test">
+    <!--通过select执行数据库的查询-->
+    <select id="findUserById" parameterType="int" resultType="com.gml.learn.mybatis001.po.User">
+        SELECT * from USER WHERE id = #{id}
+    </select>
+   <select id="findUserByName" parameterType="string" resultType="com.gml.learn.mybatis001.po.User">
+        SELECT * from USER WHERE username like #{name}
+    </select>
+    <insert id="insertUser" parameterType="com.gml.learn.mybatis001.po.User">
+        <selectKey keyProperty="id" order="AFTER" resultType="int">
+            SELECT last_insert_id()
+        </selectKey>
+        INSERT INTO user(id,username,birthday,sex,address) VALUE (#{id},#{username},#{birthday},#{sex},#{address})
+    </insert>
+    <delete id="deleteUser" parameterType="int">
+        DELETE from user where id = #{id}
+    </delete>
+    <update id="updateUser" parameterType="com.gml.learn.mybatis001.po.User">
+        UPDATE user set username=#{username},birthday=#{birthday},sex=#{sex},address=#{address} where id = #{id}
+    </update>
+</mapper>
