@@ -20,7 +20,7 @@ public interface UserMapper {
 
     List<User> findUserByName(String name);
 
-    int findUserCount();
+    int findUserCount(UserQueryVo userQueryVo);
 
     List<UserCustom> findUserList(UserQueryVo userQueryVo);
 

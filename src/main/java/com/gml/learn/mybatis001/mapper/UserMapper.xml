@@ -8,9 +8,23 @@
         <id column="_id" property="id"/>
         <result column="_username" property="username"/>
     </resultMap>
+    <!--UserQueryVo的sql条件片段-->
+    <sql id="query_user_where">
+        <if test="userCustom.sex != null and userCustom.sex !=''">
+            and sex = #{userCustom.sex}
+        </if>
+        <if test="userCustom.username != null and userCustom.username !=''">
+            and username LIKE #{userCustom.username}
+        </if>
+        <if test="ids != null">
+            <foreach collection="ids" item="id" open="and (" close=")" separator="or">
+                id=#{id}
+            </foreach>
+        </if>
+    </sql>
     <select id="findUserByIdResultMap" parameterType="int" resultMap="userResultMap">
         SELECT
-            id   _id,
+            id       _id,
             username _username
         FROM USER
         WHERE id = #{id}
@@ -29,16 +43,21 @@
             resultType="com.gml.learn.mybatis001.po.UserCustom">
         SELECT *
         FROM user
-        WHERE sex = #{userCustom.sex} AND username LIKE #{userCustom.username}
+        <where>
+            <include refid="query_user_where"/>
+        </where>
     </select>
     <select id="findUserList2" parameterType="map" resultType="com.gml.learn.mybatis001.po.UserCustom">
         SELECT *
         FROM user
         WHERE sex = #{sex} AND username LIKE #{name}
     </select>
-    <select id="findUserCount" resultType="java.lang.Integer">
+    <select id="findUserCount" parameterType="com.gml.learn.mybatis001.po.UserQueryVo" resultType="java.lang.Integer">
         SELECT count(*)
         FROM user
+        <where>
+            <include refid="query_user_where"/>
+        </where>
     </select>
 
     <insert id="insertUser" parameterType="com.gml.learn.mybatis001.po.User">

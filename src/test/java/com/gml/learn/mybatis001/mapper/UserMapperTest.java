@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.validator.ValidateWith;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,8 +52,13 @@ public class UserMapperTest {
     public void findUserList() throws Exception {
         UserQueryVo userQueryVo = new UserQueryVo();
         UserCustom userCustom = new UserCustom();
-        userCustom.setSex("1");
-        userCustom.setUsername("%张三%");
+        /*userCustom.setSex("1");
+        userCustom.setUsername("%张三%");*/
+        List<Integer> ids = new ArrayList<>();
+        ids.add(1);
+        ids.add(16);
+        ids.add(26);
+        userQueryVo.setIds(ids);
         userQueryVo.setUserCustom(userCustom);
         List<UserCustom> users = userMapper.findUserList(userQueryVo);
         for (UserCustom userCustom1 : users) {
@@ -76,7 +82,12 @@ public class UserMapperTest {
     }
     @Test
     public void findUserCount() throws  Exception {
-        System.out.println(userMapper.findUserCount());
+        UserQueryVo userQueryVo = new UserQueryVo();
+        UserCustom userCustom = new UserCustom();
+        userCustom.setSex("1");
+//        userCustom.setUsername("%张三%");
+        userQueryVo.setUserCustom(userCustom);
+        System.out.println(userMapper.findUserCount(userQueryVo));
     }
     @Test
     public void insertUser() throws Exception {
