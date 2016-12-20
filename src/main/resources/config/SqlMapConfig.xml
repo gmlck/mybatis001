@@ -19,8 +19,9 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="config/sqlmap/User.xml"/>
-        <mapper resource="config/sqlmap/UserMapper.xml"/>
+       <!-- <mapper resource="config/sqlmap/User.xml"/>-->
+       <mapper class="com.gml.learn.mybatis001.mapper.UserMapper"/>
+       <!-- <mapper resource="com/gml/learn/mybatis001/mapper/UserMapper.xml"/>-->
     </mappers>
 
 </configuration>

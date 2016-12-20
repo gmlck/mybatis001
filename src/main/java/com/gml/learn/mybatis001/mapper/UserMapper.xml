@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gml.learn.mybatis001.mapper.UserMapper">
+    <!--通过select执行数据库的查询-->
+    <resultMap id="userResultMap" type="com.gml.learn.mybatis001.po.User">
+        <id column="_id" property="id"/>
+        <result column="_username" property="username"/>
+    </resultMap>
+    <select id="findUserByIdResultMap" parameterType="int" resultMap="userResultMap">
+        SELECT
+            id   _id,
+            username _username
+        FROM USER
+        WHERE id = #{id}
+    </select>
+    <select id="findUserByName" resultType="com.gml.learn.mybatis001.po.User">
+        SELECT *
+        FROM USER
+        WHERE username LIKE #{value}
+    </select>
+    <select id="findUserById" resultType="com.gml.learn.mybatis001.po.User">
+        SELECT *
+        FROM USER
+        WHERE id = #{id}
+    </select>
+    <select id="findUserList" parameterType="com.gml.learn.mybatis001.po.UserQueryVo"
+            resultType="com.gml.learn.mybatis001.po.UserCustom">
+        SELECT *
+        FROM user
+        WHERE sex = #{userCustom.sex} AND username LIKE #{userCustom.username}
+    </select>
+    <select id="findUserList2" parameterType="map" resultType="com.gml.learn.mybatis001.po.UserCustom">
+        SELECT *
+        FROM user
+        WHERE sex = #{sex} AND username LIKE #{name}
+    </select>
+    <select id="findUserCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM user
+    </select>
+
+    <insert id="insertUser" parameterType="com.gml.learn.mybatis001.po.User">
+        <selectKey keyProperty="id" order="AFTER" resultType="int">
+            SELECT last_insert_id()
+        </selectKey>
+        INSERT INTO user(id,username,birthday,sex,address) VALUE (#{id},#{username},#{birthday},#{sex},#{address})
+    </insert>
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM user
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
