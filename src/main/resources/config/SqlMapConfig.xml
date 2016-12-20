@@ -20,8 +20,9 @@
     </environments>
     <mappers>
        <!-- <mapper resource="config/sqlmap/User.xml"/>-->
-       <mapper class="com.gml.learn.mybatis001.mapper.UserMapper"/>
+       <!--<mapper class="com.gml.learn.mybatis001.mapper.UserMapper"/>-->
        <!-- <mapper resource="com/gml/learn/mybatis001/mapper/UserMapper.xml"/>-->
+        <package name="com.gml.learn.mybatis001.mapper"/>
     </mappers>
 
 </configuration>

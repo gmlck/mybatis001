@@ -1,5 +1,6 @@
 package com.gml.learn.mybatis001.mapper;
 
+import com.gml.learn.mybatis001.po.OrdersCustom;
 import com.gml.learn.mybatis001.po.User;
 import com.gml.learn.mybatis001.po.UserCustom;
 import com.gml.learn.mybatis001.po.UserQueryVo;
